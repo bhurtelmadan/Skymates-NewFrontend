@@ -11,17 +11,10 @@ import {
   Mail,
   Phone,
   MessageSquare,
-  CheckCircle,
   Facebook,
   Twitter,
   Instagram,
-  Luggage,
-  Map,
-  LandPlot,
-  Globe,
   Building,
-  Clock,
-  PersonStanding,
   Users,
   UserCheck,
   HeartHandshake
@@ -53,7 +46,6 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  Stack,
   HStack,
   VStack,
   SimpleGrid,
@@ -214,6 +206,7 @@ const SkyMatesSimple = () => {
     airlines: "",
     comments: "",
   });
+  // eslint-disable-next-line no-unused-vars
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [dateFilter, setDateFilter] = useState({ start: "", end: "" });
@@ -222,7 +215,9 @@ const SkyMatesSimple = () => {
   // Add these hooks at the top of the component
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  // eslint-disable-next-line no-unused-vars
   const bg = useColorModeValue("white", "gray.800");
+  // eslint-disable-next-line no-unused-vars
   const borderColor = useColorModeValue("gray.200", "gray.700");
 
   useEffect(() => {
@@ -1817,7 +1812,7 @@ const FAQItem = ({ question, answer }) => (
   </AccordionItem>
 );
 
-// NavLink component with enhanced design
+// eslint-disable-next-line no-unused-vars
 const NavLink = ({ href, label, onClick, mobile }) => (
   <Link
     href={href}
