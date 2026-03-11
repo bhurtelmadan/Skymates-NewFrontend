@@ -85,11 +85,12 @@ import {
   DrawerCloseButton,
   InputGroup,
   InputLeftElement,
+  Badge,
   extendTheme,
 } from "@chakra-ui/react";
 
 // API URL
-const API_URL = "https://server-chi-blush.vercel.app/api";
+const API_URL = process.env.REACT_APP_API_URL || "https://server-chi-blush.vercel.app/api";
 
 // Create Chakra theme
 const theme = extendTheme({
@@ -397,8 +398,8 @@ const SkyMatesSimple = () => {
         <Container as="main" maxW="container.lg" py={8} px={4}>
           <Card bg="white" bgOpacity={0.8} backdropFilter="blur(10px)" shadow="lg" rounded="lg" overflow="hidden" p={6}>
             <Heading as="h2" size="lg" mb={4} color="blue.600">Contact Information</Heading>
-            <Text mb={2}><strong>Email:</strong> skymatesco@gmail.com</Text>
-            <Text><strong>Phone:</strong> +1 714-485-9360</Text>
+            <Text mb={2}><strong>Email:</strong> skymatesco@gmail.com / <strong>skymatesnepal@gmail.com</strong></Text>
+            <Text><strong>Phone:</strong> +1 714-485-9360 / <strong>+1 539-819-0185</strong></Text>
           </Card>
         </Container>
       </Box>
@@ -799,32 +800,86 @@ const SkyMatesSimple = () => {
                 </Heading>
                 <form onSubmit={handleSubmit}>
                   <VStack spacing={6} align="stretch">
-                    <Box 
-                      bg="brand.50" 
-                      p={4} 
-                      rounded="md" 
-                      borderLeft="4px solid" 
-                      borderColor="brand.300"
-                    >
+                    <Box>
+                      <Text fontSize="sm" fontWeight="semibold" color="gray.500" textTransform="uppercase" letterSpacing="wider" mb={3} textAlign="center">
+                        I am...
+                      </Text>
                       <RadioGroup 
                         value={formData.type} 
                         onChange={(val) => setFormData({...formData, type: val})}
                         isRequired
                       >
-                        <Stack direction={{ base: "column", md: "row" }} spacing={6} justifyContent="center">
-                          <Radio value="needFriend" colorScheme="cyan">
-                            <HStack>
-                              <Box as={User} color="brand.500" />
-                              <Text fontWeight="medium">Looking for a companion</Text>
-                            </HStack>
-                          </Radio>
-                          <Radio value="beFriend" colorScheme="cyan">
-                            <HStack>
-                              <Box as={UserPlus} color="brand.500" />
-                              <Text fontWeight="medium">Willing to be a companion</Text>
-                            </HStack>
-                          </Radio>
-                        </Stack>
+                        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                          <Box
+                            as="label"
+                            cursor="pointer"
+                            bg={formData.type === "needFriend" ? "cyan.100" : "gray.50"}
+                            border="2px solid"
+                            borderColor={formData.type === "needFriend" ? "cyan.400" : "gray.200"}
+                            rounded="xl"
+                            p={5}
+                            textAlign="center"
+                            transition="all 0.25s ease"
+                            _hover={{ bg: formData.type === "needFriend" ? "cyan.100" : "cyan.50", borderColor: "cyan.300", shadow: "md", transform: "translateY(-2px)" }}
+                            shadow={formData.type === "needFriend" ? "lg" : "sm"}
+                            position="relative"
+                            overflow="hidden"
+                          >
+                            {formData.type === "needFriend" && (
+                              <Box position="absolute" top={0} left={0} right={0} h="4px" bgGradient="linear(to-r, cyan.400, teal.300)" />
+                            )}
+                            <Radio value="needFriend" display="none" />
+                            <VStack spacing={2}>
+                              <Flex 
+                                w={14} h={14} rounded="full" 
+                                bg={formData.type === "needFriend" ? "cyan.200" : "gray.100"}
+                                align="center" justify="center"
+                                transition="all 0.25s"
+                              >
+                                <Box as={User} size={28} color={formData.type === "needFriend" ? "teal.600" : "gray.400"} />
+                              </Flex>
+                              <Text fontWeight="bold" fontSize="md" color={formData.type === "needFriend" ? "teal.700" : "gray.600"}>
+                                Looking for a companion
+                              </Text>
+                              <Text fontSize="xs" color={formData.type === "needFriend" ? "teal.600" : "gray.400"}>I need someone to travel with</Text>
+                            </VStack>
+                          </Box>
+
+                          <Box
+                            as="label"
+                            cursor="pointer"
+                            bg={formData.type === "beFriend" ? "teal.100" : "gray.50"}
+                            border="2px solid"
+                            borderColor={formData.type === "beFriend" ? "teal.400" : "gray.200"}
+                            rounded="xl"
+                            p={5}
+                            textAlign="center"
+                            transition="all 0.25s ease"
+                            _hover={{ bg: formData.type === "beFriend" ? "teal.100" : "teal.50", borderColor: "teal.300", shadow: "md", transform: "translateY(-2px)" }}
+                            shadow={formData.type === "beFriend" ? "lg" : "sm"}
+                            position="relative"
+                            overflow="hidden"
+                          >
+                            {formData.type === "beFriend" && (
+                              <Box position="absolute" top={0} left={0} right={0} h="4px" bgGradient="linear(to-r, teal.400, cyan.300)" />
+                            )}
+                            <Radio value="beFriend" display="none" />
+                            <VStack spacing={2}>
+                              <Flex 
+                                w={14} h={14} rounded="full" 
+                                bg={formData.type === "beFriend" ? "teal.200" : "gray.100"}
+                                align="center" justify="center"
+                                transition="all 0.25s"
+                              >
+                                <Box as={UserPlus} size={28} color={formData.type === "beFriend" ? "teal.600" : "gray.400"} />
+                              </Flex>
+                              <Text fontWeight="bold" fontSize="md" color={formData.type === "beFriend" ? "teal.700" : "gray.600"}>
+                                Willing to be a companion
+                              </Text>
+                              <Text fontSize="xs" color={formData.type === "beFriend" ? "teal.600" : "gray.400"}>I can help someone travel</Text>
+                            </VStack>
+                          </Box>
+                        </SimpleGrid>
                       </RadioGroup>
                     </Box>
                     
@@ -1288,7 +1343,7 @@ const SkyMatesSimple = () => {
                 />
                 <FAQItem 
                   question="Have more questions or need assistance?" 
-                  answer="We're here to help! If you have any additional questions or need assistance, please contact our support team at: Email: skymatesco@gmail.com, Phone: (714) 485-9360. We are dedicated to making your travel experience safe, comfortable, and enjoyable."
+                  answer="We're here to help! If you have any additional questions or need assistance, please contact our support team at: Email: skymatesco@gmail.com / skymatesnepal@gmail.com, Phone: (714) 485-9360 / (539) 819-0185. We are dedicated to making your travel experience safe, comfortable, and enjoyable."
                 />
               </Accordion>
             </CardBody>
@@ -1485,10 +1540,24 @@ const SkyMatesSimple = () => {
                 _hover={{ color: "white", textDecoration: "none" }} 
                 display="flex" 
                 alignItems="center"
+                mb={1}
                 transition="all 0.2s"
               >
                 <Box as={Mail} mr={3} />
                 skymatesco@gmail.com
+              </Link>
+              <Link 
+                href="mailto:skymatesnepal@gmail.com" 
+                color="white"
+                fontWeight="bold"
+                _hover={{ color: "yellow.200", textDecoration: "none" }} 
+                display="flex" 
+                alignItems="center"
+                transition="all 0.2s"
+              >
+                <Box as={Mail} mr={3} />
+                skymatesnepal@gmail.com
+                <Badge ml={2} colorScheme="yellow" fontSize="2xs" variant="solid" rounded="full" px={2}>NEW</Badge>
               </Link>
               <Link 
                 href="tel:+17144859360" 
@@ -1496,11 +1565,25 @@ const SkyMatesSimple = () => {
                 _hover={{ color: "white", textDecoration: "none" }} 
                 display="flex" 
                 alignItems="center" 
-                mb={4}
+                mb={2}
                 transition="all 0.2s"
               >
                 <Box as={Phone} mr={3} />
                 +1 714-485-9360
+              </Link>
+              <Link 
+                href="tel:+15398190185" 
+                color="white"
+                fontWeight="bold"
+                _hover={{ color: "yellow.200", textDecoration: "none" }} 
+                display="flex" 
+                alignItems="center" 
+                mb={4}
+                transition="all 0.2s"
+              >
+                <Box as={Phone} mr={3} />
+                +1 539-819-0185
+                <Badge ml={2} colorScheme="yellow" fontSize="2xs" variant="solid" rounded="full" px={2}>NEW</Badge>
               </Link>
               
               {user ? (
@@ -1656,6 +1739,10 @@ const ContactPopup = ({ onClose }) => (
             <Link href="mailto:skymatesco@gmail.com" color="brand.500" fontWeight="medium">
               skymatesco@gmail.com
             </Link>
+            <Text color="gray.500" fontSize="xs">or</Text>
+            <Link href="mailto:skymatesnepal@gmail.com" color="brand.500" fontWeight="bold">
+              skymatesnepal@gmail.com <Badge colorScheme="teal" fontSize="2xs" variant="solid" rounded="full" px={2}>NEW</Badge>
+            </Link>
           </Box>
         </Flex>
         
@@ -1672,6 +1759,10 @@ const ContactPopup = ({ onClose }) => (
             <Text fontWeight="bold" color="gray.700">Phone</Text>
             <Link href="tel:+17144859360" color="brand.500" fontWeight="medium">
               +1 714-485-9360
+            </Link>
+            <Text color="gray.500" fontSize="xs">or</Text>
+            <Link href="tel:+15398190185" color="brand.500" fontWeight="bold">
+              +1 539-819-0185 <Badge colorScheme="teal" fontSize="2xs" variant="solid" rounded="full" px={2}>NEW</Badge>
             </Link>
           </Box>
         </Flex>
